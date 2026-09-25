@@ -45,7 +45,7 @@ public class inventarioTienda {
         categoria[i] = cat;
         total = total + 1;;
       }
-      //Se le pregunta al usuario si quiere agregar mas productos
+      //Si le pregunta al usuario si quiere agregar mas productos
       String seguir = "si";
       while (seguir.equals("si") && total < MAX_PRODUCTOS) { 
         System.out.println("¿Desea agregar otro producto? (si / no):");
@@ -67,5 +67,84 @@ public class inventarioTienda {
         total = total + 1;
         }
       }
+      // actualizar la cantidad de un producto
+
+      System.out.println("¿Desea actualizar la cantidad de algun producto?");
+      String actualizar = sc.next();
+
+      if (actualizar.equals("si")) {
+        System.out.println("Ingrese el nombre del producto a actualizar");
+        String prodBuscar = sc.next();
+        boolean encontrado = false;
+
+        for(int i = 0;i < total;i++ ) {
+          if (nombre[i].equals(prodBuscar)) {
+              System.out.println("producto encontrado cantidad actual:"+cantidad[i]);
+              System.out.println("ingrese la nueva cantidad");
+              cantidad[i] = sc.nextInt();
+              System.out.println("cantidad actualizada");
+              encontrado = true;
+              break;
+          }
+        }
+        if (!encontrado){
+          System.out.println("el producto no existe");
+        }
+      }
+
+      // calculamos los valores y llenamos la matriz
+
+      double valorTotalInventario = 0;
+
+      for(int i=0; < total;i++){
+        double valorProducto = cantidad[i] * precio[i];
+        valorTotalInventario  =  valorTotalInventario + valorProducto;
+
+        // obtenemos el indice de su categoria
+
+        int cantIndex = categoria[i]
+
+        // llenamos la matriz
+
+        matrizInventario[cantIndex][0] = matrizInventario[cantIndex][0] + cantidad[i];
+        matrizInventario[cantIndex][1] + valorProducto;
+
+
+
+      }
+
+      // se imprime el reporte final
+
+      System.out.println("reporte final del inventario")
+
+      // detalles por producto
+
+      System.out.println("detalle de productos");
+      
+      for (int i = 0;i < total; i++ ) {
+        double valorProducto = cantidad[i] * precio[i];
+        String nombreCat = categorias[categoria[i]];
+
+          System.out.println("producto:" + nombre + "cantidad"+cantidad[i]+ "precio"+precio[i] + "total"+ valorProducto + "categoria"+ nombreCat);
+          
+      }
+
+      System.out.println("resumen por categoria");
+      for (int c = 0; c < categoria.length; c++){
+        System.out.println("categoria"+ categoria[c]+ "cantidad total"+ matrizInventario[c][0]+ "valor total"+matrizInventario[c][1]);
+
+      }
+
+      double iva = valorTotalInventario * 0.19;
+      double totalConIva = valorTotalInventario + iva;
+
+      System.out.println("resumen economico");
+      System.out.println("subTotal inventario" + valorTotalInventario);
+      System.out.println("iva"+iva);
+      System.out.println("valor total" + totalConIva);
+      
+
+
+
     } 
 }
